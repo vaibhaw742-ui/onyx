@@ -99,6 +99,35 @@ logger = setup_logger()
 PROMPT_LENGTH = 5_000_000
 
 
+"""Watch table"""
+class Watch(Base):
+    __tablename__ = "watch"
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    user_id: Mapped[UUID] = mapped_column(
+        ForeignKey("user.id", ondelete="CASCADE"), nullable=False
+    )
+    url: Mapped[str] = mapped_column(String, nullable=False)
+    added_date: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )
+    last_checked: Mapped[datetime.datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    created_at: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )
+    updated_at: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        onupdate=func.now(),
+        nullable=False
+    )
+
+    # Relationship
+    user: Mapped["User"] = relationship("User", back_populates="watch_items")
+
 class Base(DeclarativeBase):
     __abstract__ = True
 
