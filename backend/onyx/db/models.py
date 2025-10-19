@@ -98,6 +98,8 @@ logger = setup_logger()
 
 PROMPT_LENGTH = 5_000_000
 
+class Base(DeclarativeBase):
+    __abstract__ = True
 
 """Watch table"""
 class Watch(Base):
@@ -128,8 +130,7 @@ class Watch(Base):
     # Relationship
     user: Mapped["User"] = relationship("User", back_populates="watch_items")
 
-class Base(DeclarativeBase):
-    __abstract__ = True
+
 
 
 class EncryptedString(TypeDecorator):
