@@ -277,6 +277,10 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
         cascade="all, delete-orphan",
         lazy="selectin",
     )
+    # In the User class, add this line with other relationships:
+    watch_items: Mapped[list["Watch"]] = relationship(
+        "Watch", back_populates="user", cascade="all, delete-orphan"
+    )
 
     @validates("email")
     def validate_email(self, key: str, value: str) -> str:
