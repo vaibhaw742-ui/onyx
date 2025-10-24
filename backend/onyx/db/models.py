@@ -127,10 +127,61 @@ class Watch(Base):
         nullable=False
     )
 
-    # Relationship
     user: Mapped["User"] = relationship("User", back_populates="watch_items")
+    sources: Mapped[list["WatchSource"]] = relationship(
+        "WatchSource", back_populates="watch", cascade="all, delete-orphan"
+    )
 
 
+class WatchSource(Base):
+    __tablename__ = "watch_sources"
+
+    id: Mapped[UUID] = mapped_column(
+        PGUUID(as_uuid=True), primary_key=True, default=uuid4
+    )
+    watch_id: Mapped[int] = mapped_column(
+        ForeignKey("watch.id", ondelete="CASCADE"), nullable=False
+    )
+    title: Mapped[str | None] = mapped_column(String, nullable=True)
+    link: Mapped[str] = mapped_column(String, nullable=False)
+    published_date: Mapped[datetime.datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    summary: Mapped[str | None] = mapped_column(Text, nullable=True)
+    content: Mapped[str | None] = mapped_column(Text, nullable=True)
+    is_new: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    detected_at: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )
+    created_at: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )
+
+    watch: Mapped["Watch"] = relationship("Watch", back_populates="sources")
+
+
+class AddedSource(Base):
+    __tablename__ = "added_sources"
+
+    id: Mapped[UUID] = mapped_column(
+        PGUUID(as_uuid=True), primary_key=True, default=uuid4
+    )
+    user_id: Mapped[UUID] = mapped_column(
+        ForeignKey("user.id", ondelete="CASCADE"), nullable=False
+    )
+    title: Mapped[str | None] = mapped_column(String, nullable=True)
+    link: Mapped[str] = mapped_column(String, nullable=False)
+    published_date: Mapped[datetime.datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    summary: Mapped[str | None] = mapped_column(Text, nullable=True)
+    content: Mapped[str | None] = mapped_column(Text, nullable=True)
+    is_new: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    created_at: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )
+
+    user: Mapped["User"] = relationship("User", back_populates="added_sources")
 
 
 class EncryptedString(TypeDecorator):
