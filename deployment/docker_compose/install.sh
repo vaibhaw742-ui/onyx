@@ -210,8 +210,8 @@ else
     echo ""
 fi
 
-# GitHub repo base URL - using docker-compose-easy branch
-GITHUB_RAW_URL="https://raw.githubusercontent.com/onyx-dot-app/onyx/main/deployment/docker_compose"
+# GitHub repo base URL - using feature branch
+GITHUB_RAW_URL="https://raw.githubusercontent.com/vaibhaw742-ui/onyx/main/deployment/docker_compose"
 
 # Check system requirements
 print_step "Verifying Docker installation"
@@ -436,7 +436,7 @@ else
 fi
 
 # Download nginx config files
-NGINX_BASE_URL="https://raw.githubusercontent.com/onyx-dot-app/onyx/main/deployment/data/nginx"
+NGINX_BASE_URL="https://raw.githubusercontent.com/vaibhaw742-ui/onyx/main/deployment/data/nginx"
 
 # Download app.conf.template
 NGINX_CONFIG="onyx_data/data/nginx/app.conf.template"
