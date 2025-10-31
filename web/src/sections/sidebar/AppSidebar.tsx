@@ -29,6 +29,9 @@ import {
 } from "@dnd-kit/modifiers";
 import SvgEditBig from "@/icons/edit-big";
 import SvgMoreHorizontal from "@/icons/more-horizontal";
+import SvgBell from "@/icons/bell";
+import SvgExternalLink from "@/icons/external-link";
+import SvgPlusCircle from "@/icons/plus-circle";
 import Settings from "@/sections/sidebar/Settings";
 import { SidebarSection } from "@/sections/sidebar/SidebarSection";
 import AgentsModal from "@/sections/AgentsModal";
@@ -412,6 +415,28 @@ function AppSidebarInner() {
                     More Agents
                   </SidebarTab>
                 </div>
+              </SidebarSection>
+
+              {/* Watch */}
+              <SidebarSection title="Watch">
+                <SidebarTab
+                  leftIcon={SvgBell}
+                  onClick={() => route({ url: "/watch/to-watch" })}
+                >
+                  To Watch
+                </SidebarTab>
+                <SidebarTab
+                  leftIcon={SvgExternalLink}
+                  onClick={() => route({ url: "/watch/watch-sources" })}
+                >
+                  Watch Sources
+                </SidebarTab>
+                <SidebarTab
+                  leftIcon={SvgPlusCircle}
+                  onClick={() => route({ url: "/watch/added-sources" })}
+                >
+                  Add Sources
+                </SidebarTab>
               </SidebarSection>
 
               {/* Wrap Projects and Recents in a shared DndContext for chat-to-project drag */}
