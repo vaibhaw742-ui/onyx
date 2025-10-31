@@ -1,4 +1,5 @@
-import { buildUrl } from "../utilsSS";
+// Client-side API helper for watch features
+// Uses relative URLs that work through Next.js API routes
 
 // =====================================================
 // WATCH ITEMS API
@@ -32,7 +33,7 @@ export interface WatchItemsResponse {
 export async function createWatchItem(
   data: WatchItemCreate
 ): Promise<WatchItem> {
-  const response = await fetch(buildUrl("/watch"), {
+  const response = await fetch("/api/watch", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -56,7 +57,7 @@ export async function getWatchItems(
   }
 
   const response = await fetch(
-    buildUrl(`/watch?${params.toString()}`),
+    `/api/watch?${params.toString()}`,
     {
       method: "GET",
       headers: {
@@ -76,7 +77,7 @@ export async function updateWatchItem(
   watchId: number,
   data: WatchItemUpdate
 ): Promise<WatchItem> {
-  const response = await fetch(buildUrl(`/watch/${watchId}`), {
+  const response = await fetch(`/api/watch/${watchId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -92,7 +93,7 @@ export async function updateWatchItem(
 }
 
 export async function deleteWatchItem(watchId: number): Promise<void> {
-  const response = await fetch(buildUrl(`/watch/${watchId}`), {
+  const response = await fetch(`/api/watch/${watchId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -136,7 +137,7 @@ export async function getWatchSources(
   }
 
   const response = await fetch(
-    buildUrl(`/watch/sources?${params.toString()}`),
+    `/api/watch/sources?${params.toString()}`,
     {
       method: "GET",
       headers: {
@@ -156,7 +157,7 @@ export async function markWatchSourceAsRead(
   sourceId: string
 ): Promise<WatchSource> {
   const response = await fetch(
-    buildUrl(`/watch/sources/${sourceId}/read`),
+    `/api/watch/sources/${sourceId}/read`,
     {
       method: "POST",
       headers: {
@@ -176,7 +177,7 @@ export async function markWatchSourceAsRead(
 
 export async function deleteWatchSource(sourceId: string): Promise<void> {
   const response = await fetch(
-    buildUrl(`/watch/sources/${sourceId}`),
+    `/api/watch/sources/${sourceId}`,
     {
       method: "DELETE",
       headers: {
@@ -232,7 +233,7 @@ export interface AddedSourcesResponse {
 export async function createAddedSource(
   data: AddedSourceCreate
 ): Promise<AddedSource> {
-  const response = await fetch(buildUrl("/watch/added-sources"), {
+  const response = await fetch("/api/watch/added-sources", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -256,7 +257,7 @@ export async function getAddedSources(
   }
 
   const response = await fetch(
-    buildUrl(`/watch/added-sources?${params.toString()}`),
+    `/api/watch/added-sources?${params.toString()}`,
     {
       method: "GET",
       headers: {
@@ -277,7 +278,7 @@ export async function updateAddedSource(
   data: AddedSourceUpdate
 ): Promise<AddedSource> {
   const response = await fetch(
-    buildUrl(`/watch/added-sources/${sourceId}`),
+    `/api/watch/added-sources/${sourceId}`,
     {
       method: "PATCH",
       headers: {
@@ -298,7 +299,7 @@ export async function markAddedSourceAsRead(
   sourceId: string
 ): Promise<AddedSource> {
   const response = await fetch(
-    buildUrl(`/watch/added-sources/${sourceId}/read`),
+    `/api/watch/added-sources/${sourceId}/read`,
     {
       method: "POST",
       headers: {
@@ -318,7 +319,7 @@ export async function markAddedSourceAsRead(
 
 export async function deleteAddedSource(sourceId: string): Promise<void> {
   const response = await fetch(
-    buildUrl(`/watch/added-sources/${sourceId}`),
+    `/api/watch/added-sources/${sourceId}`,
     {
       method: "DELETE",
       headers: {
